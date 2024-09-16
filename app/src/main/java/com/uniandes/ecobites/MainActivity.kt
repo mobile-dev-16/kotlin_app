@@ -3,45 +3,52 @@ package com.uniandes.ecobites
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.uniandes.ecobites.ui.components.NavBar
+import com.uniandes.ecobites.ui.navigation.NavigationHost
 import com.uniandes.ecobites.ui.theme.EcoBitesTheme
+import com.uniandes.ecobites.ui.SplashScreen
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             EcoBitesTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MyApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MyApp() {
+    var showSplashScreen by remember { mutableStateOf(true) }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EcoBitesTheme {
-        Greeting("Android")
+    // Show splash screen for 3 seconds (3000 ms) before navigating to main content
+    LaunchedEffect(Unit) {
+        delay(3000) // 3 seconds
+        showSplashScreen = false // Hide splash screen after delay
+    }
+
+    if (showSplashScreen) {
+        SplashScreen() // Show splash screen
+    } else {
+        // Show main app with bottom navigation after splash screen disappears
+        var selectedTab by remember { mutableIntStateOf(0) }
+
+        Scaffold(
+            bottomBar = {
+                NavBar(selectedTab = selectedTab, onTabSelected = { tab -> selectedTab = tab })
+            }
+        ) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                NavigationHost(selectedTab = selectedTab)
+            }
+        }
     }
 }
