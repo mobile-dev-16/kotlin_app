@@ -1,16 +1,17 @@
 package com.uniandes.ecobites
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import com.uniandes.ecobites.ui.theme.AppTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.uniandes.ecobites.ui.components.NavBar
 import com.uniandes.ecobites.ui.navigation.NavigationHost
-import com.uniandes.ecobites.ui.theme.EcoBitesTheme
 import com.uniandes.ecobites.ui.SplashScreen
 import kotlinx.coroutines.delay
 
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            EcoBitesTheme {
+            AppTheme {
                 MyApp()
             }
         }
