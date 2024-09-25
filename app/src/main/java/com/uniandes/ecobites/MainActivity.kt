@@ -1,15 +1,16 @@
 package com.uniandes.ecobites
 
+import HomeScreen
+
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import com.uniandes.ecobites.ui.theme.AppTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.uniandes.ecobites.ui.theme.AppTheme
 import com.uniandes.ecobites.ui.components.NavBar
 import com.uniandes.ecobites.ui.navigation.NavigationHost
 import com.uniandes.ecobites.ui.SplashScreen
@@ -30,25 +31,31 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     var showSplashScreen by remember { mutableStateOf(true) }
 
-    // Show splash screen for 3 seconds (3000 ms) before navigating to main content
     LaunchedEffect(Unit) {
-        delay(3000) // 3 seconds
-        showSplashScreen = false // Hide splash screen after delay
+        delay(3000)
+        showSplashScreen = false
     }
 
     if (showSplashScreen) {
-        SplashScreen() // Show splash screen
+        SplashScreen()
     } else {
-        // Show main app with bottom navigation after splash screen disappears
-        var selectedTab by remember { mutableIntStateOf(0) }
+        MainContent()
+    }
+}
 
-        Scaffold(
-            bottomBar = {
-                NavBar(selectedTab = selectedTab, onTabSelected = { tab -> selectedTab = tab })
-            }
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                NavigationHost(selectedTab = selectedTab)
+@Composable
+fun MainContent() {
+    var selectedTab by remember { mutableIntStateOf(0) }
+
+    Scaffold(
+        bottomBar = {
+            NavBar(selectedTab = selectedTab, onTabSelected = { tab -> selectedTab = tab })
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            when (selectedTab) {
+                0 -> HomeScreen()
+                else -> NavigationHost(selectedTab = selectedTab)
             }
         }
     }
