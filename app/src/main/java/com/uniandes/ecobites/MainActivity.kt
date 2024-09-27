@@ -1,18 +1,20 @@
 package com.uniandes.ecobites
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import com.uniandes.ecobites.ui.theme.AppTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.uniandes.ecobites.ui.screens.CartScreen // Importamos la pantalla del carrito
+import com.uniandes.ecobites.ui.theme.AppTheme
 import com.uniandes.ecobites.ui.components.NavBar
 import com.uniandes.ecobites.ui.navigation.NavigationHost
 import com.uniandes.ecobites.ui.SplashScreen
+import com.uniandes.ecobites.ui.screens.HomeScreen
+import com.uniandes.ecobites.ui.screens.ProfileScreen
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -30,16 +32,16 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     var showSplashScreen by remember { mutableStateOf(true) }
 
-    // Show splash screen for 3 seconds (3000 ms) before navigating to main content
+    // Mostrar pantalla de splash durante 3 segundos antes de navegar al contenido principal
     LaunchedEffect(Unit) {
-        delay(3000) // 3 seconds
-        showSplashScreen = false // Hide splash screen after delay
+        delay(3000) // 3 segundos
+        showSplashScreen = false // Ocultar pantalla de splash después del retardo
     }
 
     if (showSplashScreen) {
-        SplashScreen() // Show splash screen
+        SplashScreen() // Mostrar pantalla de splash
     } else {
-        // Show main app with bottom navigation after splash screen disappears
+        // Mostrar la aplicación principal con navegación inferior
         var selectedTab by remember { mutableIntStateOf(0) }
 
         Scaffold(
@@ -48,8 +50,14 @@ fun MyApp() {
             }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                NavigationHost(selectedTab = selectedTab)
+                // Según el tab seleccionado, mostramos la pantalla adecuada
+                when (selectedTab) {
+                    0 -> HomeScreen()  // Aquí podrías colocar la pantalla de inicio
+                    1 -> CartScreen()  // Pantalla del carrito de compras
+                    2 -> ProfileScreen()  // Aquí podrías colocar la pantalla de perfil
+                }
             }
         }
     }
 }
+
