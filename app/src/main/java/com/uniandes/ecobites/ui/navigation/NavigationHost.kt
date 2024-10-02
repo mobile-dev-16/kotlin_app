@@ -13,5 +13,6 @@ fun NavigationHost(selectedTab: Int) {
         1 -> CartScreen()
         2 -> OrdersScreen()
         3 -> ProfileScreen()
+        else -> HomeScreen()
     }
 }
