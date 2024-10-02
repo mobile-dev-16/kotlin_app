@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ecobites.LoginScreen
 import com.uniandes.ecobites.ui.screens.CartScreen
-import com.uniandes.ecobites.ui.screens.HomeScreen
+import com.uniandes.ecobites.ui.screens.home.HomeScreen
 import com.uniandes.ecobites.ui.screens.ProfileScreen
 import com.uniandes.ecobites.ui.theme.AppTheme
 import com.uniandes.ecobites.ui.components.NavBar
