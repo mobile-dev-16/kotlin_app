@@ -21,14 +21,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ecobites.LoginScreen
 import com.uniandes.ecobites.ui.screens.CartScreen
 import com.uniandes.ecobites.ui.screens.home.HomeScreen
 import com.uniandes.ecobites.ui.screens.ProfileScreen
 import com.uniandes.ecobites.ui.theme.AppTheme
 import com.uniandes.ecobites.ui.components.NavBar
 import com.uniandes.ecobites.ui.SplashScreen
+import com.uniandes.ecobites.ui.screens.LoginScreen
+import io.github.jan.supabase.createSupabaseClient
 import kotlinx.coroutines.delay
+import io.github.jan.supabase.auth.Auth
+import io.github.jan.supabase.postgrest.Postgrest
+
+val supabase = createSupabaseClient(
+    supabaseUrl = "https://nlhcaanwwchxdzdiyizf.supabase.co",
+    supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5saGNhYW53d2NoeGR6ZGl5aXpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc5MDc0OTQsImV4cCI6MjA0MzQ4MzQ5NH0.LrcRGkVH1qjPE09xDngX7wrtrUmfIYbTGrgbPKarTeM"
+) {
+    install(Auth)
+    install(Postgrest)
+    //install other modules
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,26 +56,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp() {
     var showSplashScreen by remember { mutableStateOf(true) }
-    var isLoggedIn by remember { mutableStateOf(false) }
+    var isLoggedIn by remember { mutableStateOf(false) } // Track login state
 
-    // Mostrar pantalla de splash durante 3 segundos antes de navegar al contenido principal
+    // Show splash screen for 3 seconds before navigating to the main content
     LaunchedEffect(Unit) {
-        delay(3000) // 3 segundos
-        showSplashScreen = false // Ocultar pantalla de splash después del retardo
+        delay(3000) // 3 seconds delay
+        showSplashScreen = false // Hide splash screen after the delay
     }
 
     if (showSplashScreen) {
-        SplashScreen() // Mostrar pantalla de splash
+        SplashScreen() // Show splash screen
     } else if (!isLoggedIn) {
-        LoginScreen(onSignInClicked = { isLoggedIn = true })
+        LoginScreen(onLoginSuccess = { isLoggedIn = true }) // Pass a callback to update isLoggedIn
     } else {
-        MainContent()
+        MainContent() // Show main content if logged in
     }
 }
 
+
 @Composable
 fun MainContent() {
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     Scaffold(
         bottomBar = {
@@ -80,54 +93,3 @@ fun MainContent() {
     }
 }
 
-@Composable
-fun LoginScreen(onSignInClicked: () -> Unit) {
-    Column(
-    modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
-    verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally
-) {
-    Text(text = "Log in", fontSize = 24.sp)
-    Spacer(modifier = Modifier.height(24.dp))
-
-    Text(text = "eco", fontSize = 48.sp, color = androidx.compose.ui.graphics.Color(0xFF4A6A2B))
-    Text(text = "bites", fontSize = 48.sp, color = androidx.compose.ui.graphics.Color(0xFF4A6A2B))
-
-    Spacer(modifier = Modifier.height(24.dp))
-
-    OutlinedTextField(
-        value = "",
-        onValueChange = {},
-        label = { Text("Username") },
-        modifier = Modifier.fillMaxWidth()
-    )
-
-    OutlinedTextField(
-        value = "",
-        onValueChange = {},
-        label = { Text("Password") },
-        modifier = Modifier.fillMaxWidth(),
-        visualTransformation = PasswordVisualTransformation()
-    )
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    Button(
-        onClick = {onSignInClicked() },
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text("Sign in")
-    }
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-    Button(
-        onClick = { /* Implement sign-up logic */ },
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text("Sign Up")
-    }
-}
-}
