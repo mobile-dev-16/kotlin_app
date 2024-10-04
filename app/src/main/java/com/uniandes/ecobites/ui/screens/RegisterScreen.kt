@@ -22,7 +22,7 @@ fun RegisterScreen(navController: NavController, onSignUpClicked: () -> Unit) {
     var fullName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-
+    //Scaffold es una estructura de andamiaje sobre la que se organizan los componentes en interfaces de usuario complejas
     Scaffold(
         topBar = {
             TopAppBar(
