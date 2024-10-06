@@ -21,7 +21,7 @@ class LoginScreen : ComponentActivity() {
         }
     }
 }
-
+// here is the landing page, remeber the activity management optimization 
 @Composable
 fun LoginScreenContent() {
     Column(
