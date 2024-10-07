@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
-
+// esto sirve para construir el proyecto con las dependencias necesarias
 android {
     namespace = "com.uniandes.ecobites"
     compileSdk = 34
