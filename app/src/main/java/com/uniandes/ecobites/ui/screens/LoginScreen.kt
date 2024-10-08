@@ -1,5 +1,6 @@
 package com.uniandes.ecobites.ui.screens
 
+import android.net.http.HttpResponseCache.install
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity

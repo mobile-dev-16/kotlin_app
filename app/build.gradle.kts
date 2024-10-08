@@ -2,6 +2,7 @@ plugins {
     id("com.android.application") version "8.6.1" // AGP version
     id("org.jetbrains.kotlin.android") version "1.9.0" // Kotlin plugin for Android
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0" // Kotlin serialization plugin
+
 }
 
 android {
@@ -69,6 +70,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3:1.3.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.8.2")
+    implementation("androidx.navigation:navigation-compose:2.8.2")
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
@@ -80,5 +84,6 @@ dependencies {
     // Debug dependencies
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
 
 }

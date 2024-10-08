@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import androidx.compose.material3.*
+
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -53,6 +55,16 @@ private val lightScheme = lightColorScheme(
     surfaceContainer = surfaceContainerLight,
     surfaceContainerHigh = surfaceContainerHighLight,
     surfaceContainerHighest = surfaceContainerHighestLight,
+)
+private val LightColors = lightColorScheme(
+    primary = Color(0xFF4A6A2B),
+    onPrimary = Color.White,
+    secondary = Color(0xFFB8860B),
+    onSecondary = Color.White,
+    background = Color(0xFFF5F5F5),
+    onBackground = Color.Black,
+    surface = Color.White,
+    onSurface = Color.Black
 )
 
 private val darkScheme = darkColorScheme(
