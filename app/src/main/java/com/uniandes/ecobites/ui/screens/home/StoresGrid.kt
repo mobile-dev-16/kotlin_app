@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
 import com.uniandes.ecobites.R
@@ -55,7 +56,7 @@ fun StoresGrid() {
 @Composable
 fun StoreItem(store: Store, modifier: Modifier = Modifier) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start, // Align the content to the start (left)
         modifier = modifier
     ) {
         // Display the store image
@@ -64,14 +65,19 @@ fun StoreItem(store: Store, modifier: Modifier = Modifier) {
             contentDescription = store.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(150.dp).clip(MaterialTheme.shapes.extraLarge)   // Rounded corners for the image
+                .fillMaxWidth() // Use the available width
+                .height(150.dp) // Constant height
+                .clip(MaterialTheme.shapes.extraLarge)   // Rounded corners for the image
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Display the store name below the image
+        // Display the store name below the image, bold and aligned to the left
         Text(
             text = store.name,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontWeight = FontWeight.Bold // Make text bold
+            ),
+            modifier = Modifier.fillMaxWidth() // Ensure the text takes the full width
         )
     }
 }
