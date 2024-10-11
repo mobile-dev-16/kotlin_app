@@ -1,1 +1,1 @@
-this is gonna be created in order to have a functionality that is sentitive to orientation changing, either horizontal or vertical width are allowed, it must work on the keyboard when horizontal, added recently, using layout grids
+the sensor is now going to be a fingerprint that allows the user to access the content of ecobites
