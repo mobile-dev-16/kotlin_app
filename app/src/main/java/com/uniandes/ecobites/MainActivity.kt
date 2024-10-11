@@ -30,9 +30,9 @@ fun MyApp() {
     val navController = rememberNavController()  // Create the NavController
     var showSplashScreen by remember { mutableStateOf(true) }
 
-    // Show splash screen for 3 seconds before navigating to the main content
+    // Show splash screen for 1.5 seconds before navigating to the main content
     LaunchedEffect(Unit) {
-        delay(3000) // 3 seconds delay
+        delay(1500)
         showSplashScreen = false
     }
 
